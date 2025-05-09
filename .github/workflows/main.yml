@@ -11,6 +11,14 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name : Echo path
+        run: pwd
+      - name : Echo path
+        run: cd ../..
+      - name : Echo path
+        run: pwd
+      - name : Echo path
+        run: cd my-app
       - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0

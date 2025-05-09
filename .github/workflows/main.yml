@@ -1,41 +1,66 @@
-name: Pipeline
+name: Deployment Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  prueba:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Echo entro al proyecto
-        run: cd my-app
-      - name: Echo the message
-        run: echo " Hola midu!"
-      - name: Dime la fecha
-        run: date
-      - run: ls -l
 
-  dependenci:
+  lint:
     runs-on: ubuntu-18.04
     steps:
-      - name: Echo the message
-        run: echo "dependenci"
-      - name: Echo entro al proyecto
-        run: cd my-app
-      - name: Dependencia
-        run: npm install
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run eslint
+
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3.9.1
+        with:
+          cache: 'npm'
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
 
   test:
-    needs: [dependenci]
+    needs: [build]
     runs-on: ubuntu-18.04
     steps:
-      - name: Echo the message
-        run: echo "test"
-      - name: Echo entro al proyecto
-        run: cd my-app
-      - name : Install Dependencia
-        run: npm install
-      - name: Run test
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3.9.1
+        with:
+          cache: 'npm'
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
+      - name: Test
         run: npm test
+
+
+

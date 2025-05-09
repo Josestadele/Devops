@@ -18,7 +18,7 @@ jobs:
       - name : Echo path
         run: pwd
       - name : Echo path
-        run: cd my-app
+        run: ls -l
       - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0

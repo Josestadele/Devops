@@ -9,6 +9,8 @@ jobs:
   prueba:
     runs-on: ubuntu-18.04
     steps:
+      - name: Echo entro al proyecto
+        run: cd my-app
       - name: Echo the message
         run: echo " Hola midu!"
       - name: Dime la fecha
@@ -20,6 +22,8 @@ jobs:
     steps:
       - name: Echo the message
         run: echo "dependenci"
+      - name: Echo entro al proyecto
+        run: cd my-app
       - name: Dependencia
         run: npm install
 
@@ -29,6 +33,8 @@ jobs:
     steps:
       - name: Echo the message
         run: echo "test"
+      - name: Echo entro al proyecto
+        run: cd my-app
       - name : Install Dependencia
         run: npm install
       - name: Run test

@@ -1,0 +1,35 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prueba:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the message
+        run: echo " Hola midu!"
+      - name: Dime la fecha
+        run: date
+      - run: ls -l
+
+  dependenci:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the message
+        run: echo "dependenci"
+      - name: Dependencia
+        run: npm install
+
+  test:
+    needs: [dependenci]
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the message
+        run: echo "test"
+      - name : Install Dependencia
+        run: npm install
+      - name: Run test
+        run: npm test

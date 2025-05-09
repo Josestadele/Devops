@@ -11,6 +11,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: open folder
+        run: cd my-app
       - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
@@ -26,6 +28,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: open folder
+        run: cd my-app
       - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
@@ -46,6 +50,8 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - name: open folder
+        run: cd my-app
       - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0

@@ -35,7 +35,7 @@ jobs:
     - run: npm test
     
   E2E:
-    needs: [Test,Build]
+    needs: [Build]
     runs-on: ubuntu-latest
     steps:
       - name: Echo the message

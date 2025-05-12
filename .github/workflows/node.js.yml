@@ -40,4 +40,10 @@ jobs:
     steps:
       - name: Echo the message
         run: echo "Cyprees config!"
+  deploy:
+    needs: [E2E,Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the message
+        run: echo "deploy!"
 

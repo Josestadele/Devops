@@ -33,4 +33,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
+    
+  E2E:
+    needs: [Test,Build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the message
+        run: echo "Cyprees config!"
 

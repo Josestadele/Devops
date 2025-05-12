@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main","feature/*" ]
 
 jobs:
   Build:
@@ -40,4 +40,11 @@ jobs:
     steps:
       - name: Echo the message
         run: echo "Cyprees config!"
+        
+  Deploy:
+    needs: [Test,E2E]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the message
+        run: echo "Deploy"
 
